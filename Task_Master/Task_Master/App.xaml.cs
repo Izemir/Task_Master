@@ -1,5 +1,6 @@
 ﻿using System;
 using Task_Master.Services;
+using Task_Master.Services.TaskService;
 using Task_Master.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,6 +13,8 @@ namespace Task_Master
         public App()
         {
             InitializeComponent();
+
+            StatusService.Init();
 
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();

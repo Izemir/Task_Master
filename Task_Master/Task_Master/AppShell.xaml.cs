@@ -13,6 +13,8 @@ namespace Task_Master
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(TaskDetailPage), typeof(TaskDetailPage));
+            Routing.RegisterRoute(nameof(NewTaskPage), typeof(NewTaskPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

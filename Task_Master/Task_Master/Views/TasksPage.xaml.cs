@@ -10,12 +10,19 @@ using Xamarin.Forms.Xaml;
 namespace Task_Master.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class TasksPage : ContentPage
     {
-        public LoginPage()
+        TasksViewModel _viewModel;
+        public TasksPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
+            BindingContext = _viewModel = new TasksViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
         }
     }
 }
