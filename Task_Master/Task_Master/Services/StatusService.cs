@@ -23,5 +23,11 @@ namespace Task_Master.Services
         {
             return StatusList.Find(x => x.Id == id);
         }
+
+        public static TaskStatus ChangeStatus(EnumTaskStatuses id)
+        {
+            if(id!=EnumTaskStatuses.finished) return StatusList.Find(x => x.Id == id+1);
+            else return StatusList.Find(x => x.Id == id);
+        }
 	}
 }

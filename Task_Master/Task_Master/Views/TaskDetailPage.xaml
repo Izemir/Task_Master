@@ -2,11 +2,28 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Task_Master.Views.TaskDetailPage"
+             xmlns:local="clr-namespace:Task_Master.ViewModels"  
+             xmlns:model="clr-namespace:Task_Master.Models"
              Title="{Binding Title}">
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Название:" FontSize="Medium" />
-        <Label Text="{Binding Name}" FontSize="Small"/>
-        <Label Text="Описание:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Изменить" Command="{Binding ChangeTaskCommand}"/>
+        <ToolbarItem Text="Удалить" Command="{Binding DeleteTaskCommand}"/>
+    </ContentPage.ToolbarItems>
+    
+    <StackLayout Margin="10" Spacing="10" Padding="5" Orientation="Vertical">
+        <Label Text="Название:" FontSize="Small" TextColor="{StaticResource Primary}" />
+        <Label Text="{Binding Name}" FontSize="Medium" TextColor="Black"/>
+        <Label Text="Статус:" FontSize="Small" TextColor="{StaticResource Primary}"/>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding Status}" FontSize="Medium" TextColor="Black"/>
+            <Button Text="Изменить статус" Command="{Binding ChangeStatus}" 
+                    Style="{StaticResource WhiteButton}"
+                    HorizontalOptions="EndAndExpand"
+                    IsEnabled="{Binding CanChangeStatus}"></Button>
+        </StackLayout>
+        <Label Text="Описание:" FontSize="Small" TextColor="{StaticResource Primary}"/>
+        <Label Text="{Binding Description}" FontSize="Medium" TextColor="Black"/>
+        <Label Text="Дата создания:" FontSize="Small" TextColor="{StaticResource Primary}"/>
+        <Label Text="{Binding CreateDate}" FontSize="Medium" TextColor="Black"/>
     </StackLayout>
 </ContentPage>

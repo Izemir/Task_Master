@@ -15,6 +15,7 @@ namespace Task_Master
             InitializeComponent();
 
             StatusService.Init();
+            TaskService.Init();
 
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();

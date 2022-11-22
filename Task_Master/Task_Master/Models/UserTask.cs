@@ -12,8 +12,9 @@ namespace Task_Master.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
-
-        public TaskStatus Status { get; set; } = new TaskStatus { Id=EnumTaskStatuses.opened, Name="Открыта"};
+        public int StatusId { get; set; } = (int)EnumTaskStatuses.opened;
+        [Ignore]
+        public TaskStatus Status { get; set; }
 
     }
 }

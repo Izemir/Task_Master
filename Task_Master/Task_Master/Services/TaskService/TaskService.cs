@@ -13,7 +13,7 @@ namespace Task_Master.Services.TaskService
     {
         static SQLiteAsyncConnection db;
 
-        static async Task Init()
+        public static async Task Init()
         {
             if (db != null)
                 return;
@@ -34,7 +34,7 @@ namespace Task_Master.Services.TaskService
                 Name = name,
                 Description = description,
                 CreateDate = DateTime.Now,
-                Status = StatusService.GetStatus(EnumTaskStatuses.opened)
+                StatusId = (int)EnumTaskStatuses.opened
             };
 
             var id = await db.InsertAsync(task);
@@ -45,7 +45,8 @@ namespace Task_Master.Services.TaskService
             await Init();
             var task = await db.Table<UserTask>()
                 .FirstOrDefaultAsync(c => c.Id == id);
-            task.Status = StatusService.GetStatus(statusId);
+            task.StatusId = (int)statusId;
+            await db.UpdateAsync(task);
             return task;
         }
 
@@ -55,6 +56,7 @@ namespace Task_Master.Services.TaskService
 
             var task = await db.Table<UserTask>()
                 .FirstOrDefaultAsync(c => c.Id == id);
+            if (task != null) task.Status = StatusService.GetStatus((EnumTaskStatuses)task.StatusId);
 
             return task;
         }
@@ -64,6 +66,10 @@ namespace Task_Master.Services.TaskService
             await Init();
 
             var tasks = await db.Table<UserTask>().ToListAsync();
+            foreach(var task in tasks)
+            {
+                task.Status = StatusService.GetStatus((EnumTaskStatuses)task.StatusId);
+            }
             return tasks;
         }
 
@@ -81,6 +87,7 @@ namespace Task_Master.Services.TaskService
                 .FirstOrDefaultAsync(c => c.Id == id);
             task.Name = name;
             task.Description = description;
+            await db.UpdateAsync(task);
             var tasks = await db.Table<UserTask>().ToListAsync();
             return tasks;
         }

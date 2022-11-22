@@ -7,24 +7,43 @@
              xmlns:model="clr-namespace:Task_Master.Models">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="+" Command="{Binding AddTaskCommand}" />
+        <ToolbarItem Text="Добавить задачу" Command="{Binding AddTaskCommand}"/>
     </ContentPage.ToolbarItems>
     
     <RefreshView x:DataType="local:TasksViewModel" Command="{Binding LoadTasksCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="TaskListView"
                 ItemsSource="{Binding Tasks}"
+                        Margin="10"
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:UserTask">
-                        <Label Text="{Binding Name}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListTaskTextStyle}" 
-                            FontSize="16" />
-                        <Label Text="{Binding Description}" 
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListTaskDetailTextStyle}"
-                            FontSize="13" />
+                    <StackLayout Padding="5" x:DataType="model:UserTask">
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Name}" 
+                                        LineBreakMode="NoWrap" 
+                                        Style="{DynamicResource ListItemTextStyle}" 
+                                        FontSize="16" 
+                                       TextColor="{StaticResource Primary}"/>
+                                <Label Text="{Binding Description}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="13"
+                                       TextColor="Black"/>
+                            </StackLayout>
+                            <Label Text="{Binding Status}" 
+                                         LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="16" 
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="EndAndExpand"
+                                   HorizontalTextAlignment="End"/>
+                        </StackLayout>
+                        
+                        
+                        <BoxView BackgroundColor="LightGray" CornerRadius="2" HorizontalOptions="FillAndExpand" 
+                                                HeightRequest="1"></BoxView>
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
