@@ -51,7 +51,7 @@ namespace Task_Master.ViewModels
                 var task = await TaskService.GetTask(taskId);
                 Name = task.Name;
                 Description = task.Description;
-                Title = Name.Length > 10 ? Name.Substring(10) + "..." : Name;
+                Title = Name.Length > 10 ? Name.Substring(0, 10) + "..." : Name;
                 edit = true;
             }
             catch (Exception)
