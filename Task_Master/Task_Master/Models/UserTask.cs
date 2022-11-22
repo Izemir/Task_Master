@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Task_Master.Models
 {
+    
     public class UserTask
     {
         [PrimaryKey, AutoIncrement]
