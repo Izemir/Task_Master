@@ -9,7 +9,8 @@ namespace Task_Master.Models
     {
         opened = 1,
         inprogress = 2,
-        finished = 3
+        finished = 3,
+        overdue = 10
     }
 
     // статус задачи

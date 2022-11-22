@@ -15,15 +15,18 @@
         <Label Text="{Binding Name}" FontSize="Medium" TextColor="Black"/>
         <Label Text="Статус:" FontSize="Small" TextColor="{StaticResource Primary}"/>
         <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding Status}" FontSize="Medium" TextColor="Black"/>
+            <Label Text="{Binding Status}" FontSize="Medium" TextColor="{Binding Color}"/>
             <Button Text="Изменить статус" Command="{Binding ChangeStatusCommand}" 
                     Style="{StaticResource WhiteButton}"
                     HorizontalOptions="EndAndExpand"
+                    IsVisible="{Binding CanChangeStatus}"
                     IsEnabled="{Binding CanChangeStatus}"></Button>
         </StackLayout>
         <Label Text="Описание:" FontSize="Small" TextColor="{StaticResource Primary}"/>
         <Label Text="{Binding Description}" FontSize="Medium" TextColor="Black"/>
         <Label Text="Дата создания:" FontSize="Small" TextColor="{StaticResource Primary}"/>
         <Label Text="{Binding CreateDate}" FontSize="Medium" TextColor="Black"/>
+        <Label Text="Срок:" FontSize="Small" TextColor="{StaticResource Primary}"/>
+        <Label Text="{Binding Deadline}" FontSize="Medium" TextColor="Black"/>
     </StackLayout>
 </ContentPage>

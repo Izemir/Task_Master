@@ -12,6 +12,10 @@
             <Entry Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" />
             <Label Text="Описание" FontSize="Medium" />
             <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+            <Label Text="Срок" FontSize="Medium" />
+            <DatePicker Date="{Binding Deadline, Mode=TwoWay}" FontSize="Medium" Margin="0">
+                <DatePicker.MinimumDate>11/01/2022</DatePicker.MinimumDate>
+            </DatePicker>
             <StackLayout Orientation="Horizontal">
                 <Button Text="Отмена" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Сохранить" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

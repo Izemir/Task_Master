@@ -17,6 +17,7 @@ namespace Task_Master.Services
                 new TaskStatus(){Id=EnumTaskStatuses.opened, Name="Открыта"},
                 new TaskStatus(){Id=EnumTaskStatuses.inprogress, Name="В процессе"},
                 new TaskStatus(){Id=EnumTaskStatuses.finished, Name="Выполнена"},
+                new TaskStatus(){Id=EnumTaskStatuses.overdue, Name="Просрочена"},
             };
 		}
 
@@ -27,7 +28,7 @@ namespace Task_Master.Services
 
         public static TaskStatus ChangeStatus(EnumTaskStatuses id)
         {
-            if(id!=EnumTaskStatuses.finished) return StatusList.Find(x => x.Id == id+1);
+            if(id!=EnumTaskStatuses.finished || id!=EnumTaskStatuses.overdue) return StatusList.Find(x => x.Id == id+1);
             else return StatusList.Find(x => x.Id == id);
         }
 	}

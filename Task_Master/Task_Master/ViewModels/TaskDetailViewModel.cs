@@ -22,6 +22,8 @@ namespace Task_Master.ViewModels
         private string createDate;
         private TaskStatus taskStatus;
         private bool canChangeStatus;
+        private string deadline;
+        private Color color;
 
         public Command DeleteTaskCommand { get; }
         public Command ChangeTaskCommand { get; }
@@ -45,10 +47,22 @@ namespace Task_Master.ViewModels
             set => SetProperty(ref createDate, value);
         }
 
+        public string Deadline
+        {
+            get => deadline;
+            set => SetProperty(ref deadline, value);
+        }
+
         public TaskStatus Status
         {
             get => taskStatus;
             set => SetProperty(ref taskStatus, value);
+        }
+
+        public Color Color
+        {
+            get => color;
+            set => SetProperty(ref color, value);
         }
 
         public bool CanChangeStatus
@@ -76,6 +90,7 @@ namespace Task_Master.ViewModels
             DeleteTaskCommand = new Command(DeleteTask);
             ChangeStatusCommand = new Command(ChangeTaskStatus);
             ChangeTaskCommand = new Command(ChangeTask);
+            Color = Color.Black;
         }
 
         public async void LoadTaskId(int taskId)
@@ -86,9 +101,14 @@ namespace Task_Master.ViewModels
                 Name = task.Name;
                 Description = task.Description;
                 CreateDate = task.CreateDate.ToString("yyyy.MM.dd-HH:mm");
-                Status=task.Status;
+                Deadline = task.Deadline.ToString("yyyy.MM.dd");
+                Status =task.Status;
                 Title = Name.Length > 10 ? Name.Substring(0,10) + "..." : Name;
-                CanChangeStatus = (EnumTaskStatuses)task.StatusId != EnumTaskStatuses.finished;
+                var statusId = (EnumTaskStatuses)task.StatusId;
+                CanChangeStatus = statusId != EnumTaskStatuses.finished && statusId !=EnumTaskStatuses.overdue;
+                if(statusId==EnumTaskStatuses.finished) Color = Color.Green;
+                else if(statusId==EnumTaskStatuses.overdue) Color = Color.Red;
+                else Color = Color.Black;
             }
             catch (Exception)
             {

@@ -19,9 +19,11 @@ namespace Task_Master.ViewModels
         private string name;
         private string description;
         private bool edit = false;
+        private DateTime deadline;
         public NewTaskViewModel()
         {
             Title = "Новая задача";
+            Deadline = DateTime.Now;
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
@@ -51,6 +53,7 @@ namespace Task_Master.ViewModels
                 var task = await TaskService.GetTask(taskId);
                 Name = task.Name;
                 Description = task.Description;
+                Deadline = task.Deadline;
                 Title = Name.Length > 10 ? Name.Substring(0, 10) + "..." : Name;
                 edit = true;
             }
@@ -78,6 +81,12 @@ namespace Task_Master.ViewModels
             set => SetProperty(ref description, value);
         }
 
+        public DateTime Deadline
+        {
+            get => deadline;
+            set => SetProperty(ref deadline, value);
+        }
+
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
 
@@ -89,8 +98,8 @@ namespace Task_Master.ViewModels
 
         private async void OnSave()
         {
-            if (edit) await TaskService.UpdateTask(TaskId, Name, Description);
-            else await TaskService.AddTask(Name, Description);
+            if (edit) await TaskService.UpdateTask(TaskId, Name, Description, Deadline);
+            else await TaskService.AddTask(Name, Description, Deadline);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

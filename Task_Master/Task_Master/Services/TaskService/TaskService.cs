@@ -30,7 +30,7 @@ namespace Task_Master.Services.TaskService
             await db.CreateTableAsync<UserTask>();
         }
 
-        public static async Task AddTask(string name, string description)
+        public static async Task AddTask(string name, string description, DateTime deadline)
         {
             await Init();
             var task = new UserTask()
@@ -38,6 +38,7 @@ namespace Task_Master.Services.TaskService
                 Name = name,
                 Description = description,
                 CreateDate = DateTime.Now,
+                Deadline = deadline,
                 StatusId = (int)EnumTaskStatuses.opened
             };
 
@@ -60,7 +61,15 @@ namespace Task_Master.Services.TaskService
 
             var task = await db.Table<UserTask>()
                 .FirstOrDefaultAsync(c => c.Id == id);
-            if (task != null) task.Status = StatusService.GetStatus((EnumTaskStatuses)task.StatusId);
+            if (task != null)
+            {
+                if (task.StatusId != (int)EnumTaskStatuses.finished && task.Deadline < DateTime.Today)
+                {
+                    task.StatusId = (int)EnumTaskStatuses.overdue;
+                    await db.UpdateAsync(task);
+                }
+                task.Status = StatusService.GetStatus((EnumTaskStatuses)task.StatusId);
+            }
 
             return task;
         }
@@ -72,6 +81,11 @@ namespace Task_Master.Services.TaskService
             var tasks = await db.Table<UserTask>().ToListAsync();
             foreach(var task in tasks)
             {
+                if (task.StatusId != (int)EnumTaskStatuses.finished && task.Deadline < DateTime.Today)
+                {
+                    task.StatusId = (int)EnumTaskStatuses.overdue;
+                    await db.UpdateAsync(task);
+                }
                 task.Status = StatusService.GetStatus((EnumTaskStatuses)task.StatusId);
             }
             return tasks;
@@ -84,13 +98,15 @@ namespace Task_Master.Services.TaskService
             await db.DeleteAsync<UserTask>(id);
         }
 
-        public static async Task<IEnumerable<UserTask>> UpdateTask(int id, string name, string description)
+        public static async Task<IEnumerable<UserTask>> UpdateTask(int id, string name, string description, DateTime deadline)
         {
             await Init();
             var task = await db.Table<UserTask>()
                 .FirstOrDefaultAsync(c => c.Id == id);
             task.Name = name;
             task.Description = description;
+            task.Deadline = deadline;
+            if (deadline > DateTime.Now) task.StatusId = (int)EnumTaskStatuses.inprogress;
             await db.UpdateAsync(task);
             var tasks = await db.Table<UserTask>().ToListAsync();
             return tasks;
