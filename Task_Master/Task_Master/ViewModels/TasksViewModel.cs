@@ -11,6 +11,9 @@ using Xamarin.Forms;
 
 namespace Task_Master.ViewModels
 {
+    /// <summary>
+    /// Список всех задач пользователя
+    /// </summary>
     public class TasksViewModel : BaseViewModel
     {
         private UserTask _selectedTask;

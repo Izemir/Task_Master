@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Task_Master.Models
 {
+    // перечисление статусов
     public enum EnumTaskStatuses
     {
         opened = 1,
@@ -11,6 +12,7 @@ namespace Task_Master.Models
         finished = 3
     }
 
+    // статус задачи
     public class TaskStatus
     {
         public EnumTaskStatuses Id { get; set; }

@@ -10,6 +10,9 @@ using Xamarin.Forms;
 
 namespace Task_Master.ViewModels
 {
+    /// <summary>
+    /// Выгрузка и отображение информации о задаче
+    /// </summary>
     [QueryProperty(nameof(TaskId), nameof(TaskId))]
     public class TaskDetailViewModel: BaseViewModel
     {

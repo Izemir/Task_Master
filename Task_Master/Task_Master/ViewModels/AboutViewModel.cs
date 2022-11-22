@@ -9,7 +9,7 @@ namespace Task_Master.ViewModels
     {
         public AboutViewModel()
         {
-            Title = "About";
+            Title = "О приложении";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://github.com/Izemir/Task_Master"));
         }
 

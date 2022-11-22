@@ -9,6 +9,11 @@ using Xamarin.Essentials;
 
 namespace Task_Master.Services.TaskService
 {
+
+    /// <summary>
+    /// сервис взаимодействия с БД, где сохраняются данные
+    /// CRUD операции реализованы
+    /// </summary>
     public static class TaskService
     {
         static SQLiteAsyncConnection db;
@@ -18,7 +23,6 @@ namespace Task_Master.Services.TaskService
             if (db != null)
                 return;
 
-            // Get an absolute path to the database file
             var databasePath = Path.Combine(FileSystem.AppDataDirectory, "MyData.db");
 
             db = new SQLiteAsyncConnection(databasePath);

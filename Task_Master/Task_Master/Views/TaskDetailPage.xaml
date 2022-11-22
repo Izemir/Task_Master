@@ -16,7 +16,7 @@
         <Label Text="Статус:" FontSize="Small" TextColor="{StaticResource Primary}"/>
         <StackLayout Orientation="Horizontal">
             <Label Text="{Binding Status}" FontSize="Medium" TextColor="Black"/>
-            <Button Text="Изменить статус" Command="{Binding ChangeStatus}" 
+            <Button Text="Изменить статус" Command="{Binding ChangeStatusCommand}" 
                     Style="{StaticResource WhiteButton}"
                     HorizontalOptions="EndAndExpand"
                     IsEnabled="{Binding CanChangeStatus}"></Button>

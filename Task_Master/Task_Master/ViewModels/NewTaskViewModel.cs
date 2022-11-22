@@ -9,6 +9,9 @@ using Xamarin.Forms;
 
 namespace Task_Master.ViewModels
 {
+    /// <summary>
+    /// Создание новой задачи и редактирование уже существующей
+    /// </summary>
     [QueryProperty(nameof(TaskId), nameof(TaskId))]
     public class NewTaskViewModel: BaseViewModel
     {

@@ -5,6 +5,7 @@ using Task_Master.Models;
 
 namespace Task_Master.Services
 {
+    // вариант локализации статусов и необходимые сервисы
     public static class StatusService
     {
         public static List<TaskStatus> StatusList { get; private set; }
