@@ -98,7 +98,13 @@ namespace Task_Master.ViewModels
 
         private async void OnSave()
         {
-            if (edit) await TaskService.UpdateTask(TaskId, Name, Description, Deadline);
+            var newTask = new UserTask()
+            {
+                Name = Name,
+                Description = Description,
+                Deadline = Deadline
+            };
+            if (edit) await TaskService.UpdateTask(TaskId, newTask);
             else await TaskService.AddTask(Name, Description, Deadline);
 
             // This will pop the current page off the navigation stack

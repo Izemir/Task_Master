@@ -98,15 +98,15 @@ namespace Task_Master.Services.TaskService
             await db.DeleteAsync<UserTask>(id);
         }
 
-        public static async Task<IEnumerable<UserTask>> UpdateTask(int id, string name, string description, DateTime deadline)
+        public static async Task<IEnumerable<UserTask>> UpdateTask(int id, UserTask newTask)
         {
             await Init();
             var task = await db.Table<UserTask>()
                 .FirstOrDefaultAsync(c => c.Id == id);
-            task.Name = name;
-            task.Description = description;
-            task.Deadline = deadline;
-            if (deadline > DateTime.Now) task.StatusId = (int)EnumTaskStatuses.inprogress;
+            task.Name = newTask.Name;
+            task.Description = newTask.Description;
+            task.Deadline = newTask.Deadline;
+            if (newTask.Deadline > DateTime.Now) task.StatusId = (int)EnumTaskStatuses.inprogress;
             await db.UpdateAsync(task);
             var tasks = await db.Table<UserTask>().ToListAsync();
             return tasks;
